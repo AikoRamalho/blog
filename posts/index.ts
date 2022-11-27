@@ -1,6 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import bodyParser from 'body-parser';
+import axios from 'axios';
 
 const app: Express = express();
 app.use(bodyParser.json());
@@ -27,6 +28,17 @@ app.post('/posts', (req: Request, res: Response) => {
     id,
     title,
   };
+
+  axios.post('http://localhost:4005/events', {
+    type: 'PostCreated',
+    data: {
+      id,
+      title,
+    },
+  }).catch((err) => {
+    console.log(err.message);
+  });
+
 
   res.status(201).send(posts[id]);
 });
