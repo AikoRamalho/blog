@@ -21,7 +21,7 @@ app.get('/posts', (req: Request, res: Response) => {
   res.send(posts);
 });
 
-app.post('/posts', (req: Request, res: Response) => {
+app.post('/posts', async (req: Request, res: Response) => {
   const id = uuidv4();
   const { title } = req.body;
   posts[id] = {
@@ -29,7 +29,7 @@ app.post('/posts', (req: Request, res: Response) => {
     title,
   };
 
-  axios.post('http://localhost:4005/events', {
+  await axios.post('http://localhost:4005/events', {
     type: 'PostCreated',
     data: {
       id,
