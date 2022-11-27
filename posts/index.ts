@@ -2,9 +2,11 @@ import express, { Express, Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import bodyParser from 'body-parser';
 import axios from 'axios';
+import cors from 'cors';
 
 const app: Express = express();
 app.use(bodyParser.json());
+app.use(cors());
 
 interface Post {
   id: string;
@@ -41,6 +43,12 @@ app.post('/posts', async (req: Request, res: Response) => {
 
 
   res.status(201).send(posts[id]);
+});
+
+app.post('/events', (req: Request, res: Response) => {
+  console.log('Received Event', req.body.type);
+
+  res.send({});
 });
 
 app.listen(4000, () => {
