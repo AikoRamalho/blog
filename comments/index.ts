@@ -2,9 +2,11 @@ import express, { Express, Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import { randomUUID } from 'crypto';
 import axios from 'axios';
+import cors from 'cors';
 
 const app: Express = express();
 app.use(bodyParser.json());
+app.use(cors());
 
 interface Comment {
   id: string;
@@ -46,6 +48,12 @@ app.post('/posts/:id/comments', async (req: Request, res: Response) => {
 
   res.status(201).send(comments)
 })
+
+app.post('/events', (req: Request, res: Response) => {
+  console.log('Received Event', req.body.type);
+
+  res.send({});
+});
 
 
 app.listen(4001, () => {
