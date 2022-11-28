@@ -25,7 +25,7 @@ interface PostsCollection {
 const postsCollection: PostsCollection = {} as PostsCollection;
 
 app.get('/posts', (req: Request, res: Response) => {
-  res.send({posts : []});
+  res.send(postsCollection);
 });
 
 app.post('/events', (req: Request, res: Response) => {
