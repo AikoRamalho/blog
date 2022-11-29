@@ -10,6 +10,7 @@ app.use(cors());
 interface Comment {
   id: string;
   content: string;
+  status: string;
 }
 
 interface PostWithComments {
@@ -41,9 +42,9 @@ app.post('/events', (req: Request, res: Response) => {
   }
 
   if (type === 'CommentCreated') {
-    const { id, content, postId } = data;
+    const { id, content, postId, status } = data;
     const post = postsCollection[postId];
-    post.comments.push({ id, content });
+    post.comments.push({ id, content, status });
   }
 
   console.log(postsCollection)
