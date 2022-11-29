@@ -42,6 +42,7 @@ app.post('/posts/:id/comments', async (req: Request, res: Response) => {
       id: commentId,
       content,
       postId,
+      status: 'pending',
     },
   }).catch((err) => {
     console.log(err.message);
