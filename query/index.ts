@@ -25,13 +25,7 @@ interface PostsCollection {
 
 const postsCollection: PostsCollection = {} as PostsCollection;
 
-app.get('/posts', (req: Request, res: Response) => {
-  res.send(postsCollection);
-});
-
-app.post('/events', (req: Request, res: Response) => {
-  const { type, data } = req.body;
-
+const handleEvent = (type: string, data: any) => {
   if (type === 'PostCreated') {
     const { id, title } = data;
     postsCollection[id] = {
@@ -56,12 +50,29 @@ app.post('/events', (req: Request, res: Response) => {
       comment.content = content;
     }
   }
+};
 
-  console.log(postsCollection)
+app.get('/posts', (req: Request, res: Response) => {
+  res.send(postsCollection);
+});
+
+app.post('/events', (req: Request, res: Response) => {
+  const { type, data } = req.body;
+
+  handleEvent(type, data);
 
   res.send({});
 });
 
 app.listen(4002, () => {
   console.log('Listening on port 4002');
+
+  axios.get('http://localhost:4005/events').then((res) => {
+    for (let event of res.data) {
+      console.log('Processing event:', event.type);
+      handleEvent(event.type, event.data);
+    }
+  }).catch((err) => {
+    console.log(err.message);
+  });
 });
