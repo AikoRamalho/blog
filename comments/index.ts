@@ -11,6 +11,7 @@ app.use(cors());
 interface Comment {
   id: string;
   content: string;
+  status: string;
 }
 
 interface CommentsByPost {
@@ -31,7 +32,7 @@ app.post('/posts/:id/comments', async (req: Request, res: Response) => {
 
   const comments = commentsByPostId[postId] || [];
 
-  comments.push({ id: commentId, content });
+  comments.push({ id: commentId, content, status: 'pending' });
 
   commentsByPostId[postId] = comments;
 
