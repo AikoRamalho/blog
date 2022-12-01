@@ -37,7 +37,7 @@ app.post('/posts', async (req: Request, res: Response) => {
       id,
       title,
     },
-  }).catch((err) => {
+  }).catch((err: { message: any; }) => {
     console.log(err.message);
   });
 
