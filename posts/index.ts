@@ -23,7 +23,7 @@ app.get('/posts', (req: Request, res: Response) => {
   res.send(posts);
 });
 
-app.post('/posts', async (req: Request, res: Response) => {
+app.post('/posts/create', async (req: Request, res: Response) => {
   const id = uuidv4();
   const { title } = req.body;
   posts[id] = {
