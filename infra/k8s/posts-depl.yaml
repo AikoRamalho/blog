@@ -22,9 +22,9 @@ metadata:
   name: posts-clusterip-srv
 spec:
   selector:
-    app: posts-clusterip-srv
-  ports: 
-    - name: posts-clusterip-srv
+    app: posts
+  ports:
+    - name: posts
       protocol: TCP
       port: 4000
       targetPort: 4000
